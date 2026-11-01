@@ -1,35 +1,1000 @@
-We are developing **Cashbook – Personal Finance Manager**, a local-first personal finance Progressive Web App.
 
-Repository:
-https://github.com/Srikanth0907/cashbook-personal-finance-manager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#167a52">
 
-I want you to create the complete landing page in the existing `index.html`.
+    <title>Cashbook – Personal Finance Manager</title>
 
-Requirements:
+    <meta name="description"
+          content="Cashbook is your personal finance manager. Organise accounts, track income and expenses, and keep your financial records in one place.">
 
-1. Preserve the existing Cashbook branding, tagline and previously approved colour theme.
-2. Primary green: #167a52.
-3. Page background: #f4f7f5.
-4. Main text: #24332c.
-5. White cards and clean green accents.
-6. Create a polished, professional, responsive landing page for desktop and mobile.
-7. Include:
-   - Cashbook logo and name.
-   - Tagline: "Your Money. Your Accounts. Your Records."
-   - Short product introduction.
-   - Feature sections for Accounts, Income & Expenses, Transfers, History and Reports.
-   - Privacy and local-first information.
-   - A prominent "Enter Cashbook" button.
-8. Clicking "Enter Cashbook" should take the user to a separate initial workspace screen.
-9. For now, the workspace should display a friendly message that the application is being built. Do not pretend that unfinished features are functional.
-10. Use lightweight CSS, inline SVG icons where useful, and accessible HTML.
-11. Do not introduce external frameworks, libraries, fonts or dependencies.
-12. Do not introduce new colours or change the approved theme.
-13. Do not add login, registration, Firebase, Supabase or cloud database functionality.
-14. Do not modify any other files.
+    <style>
+        :root {
+            --primary: #167a52;
+            --primary-dark: #105d3e;
+            --primary-light: #e5f5ec;
+            --page-bg: #f4f7f5;
+            --surface: #ffffff;
+            --text: #24332c;
+            --secondary: #607168;
+            --muted: #89958e;
+            --border: #e3ebe5;
+            --shadow: 0 12px 35px rgba(29, 75, 49, 0.07);
+            --radius: 18px;
+        }
 
-Important:
-- Return the complete, consolidated `index.html`, not partial code or patches.
-- Ensure all links and buttons have meaningful behaviour.
-- Ensure the page works from the existing GitHub Pages repository URL, including its repository subpath.
-- Do not include explanatory text inside the HTML.
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--page-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        button, a {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .nav-content {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 23px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: var(--primary);
+            color: white;
+        }
+
+        .brand-mark svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            color: var(--secondary);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-button,
+        .primary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 21px;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .nav-button:hover,
+        .primary-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 85px 0 75px;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 65px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            border-radius: 30px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.13;
+            letter-spacing: -1.8px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 510px;
+            color: var(--secondary);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .text-link {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .hero-note {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 22px;
+        }
+
+        /* Dashboard illustration */
+
+        .preview-area {
+            position: relative;
+            padding: 22px;
+        }
+
+        .preview-decoration {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: #dcefe3;
+            right: -25px;
+            top: -25px;
+            z-index: -1;
+        }
+
+        .preview-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .preview-heading strong {
+            font-size: 17px;
+        }
+
+        .preview-label {
+            font-size: 11px;
+            color: var(--muted);
+            background: var(--page-bg);
+            border-radius: 20px;
+            padding: 6px 10px;
+        }
+
+        .balance-box {
+            background: var(--primary);
+            border-radius: 15px;
+            padding: 23px;
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        .balance-box small {
+            opacity: 0.85;
+            font-size: 12px;
+        }
+
+        .balance-amount {
+            font-size: 31px;
+            font-weight: 700;
+            margin-top: 7px;
+            letter-spacing: -0.7px;
+        }
+
+        .preview-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+            margin-bottom: 22px;
+        }
+
+        .stat-box {
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        .stat-box small {
+            display: block;
+            color: var(--secondary);
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .stat-box strong {
+            font-size: 17px;
+        }
+
+        .income {
+            color: var(--primary);
+        }
+
+        .expense {
+            color: #c65b55;
+        }
+
+        .preview-transaction-heading {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .preview-transaction {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .transaction-name {
+            font-weight: 600;
+        }
+
+        .transaction-date {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* Feature sections */
+
+        .section {
+            padding: 75px 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 42px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(27px, 4vw, 36px);
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--secondary);
+            font-size: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 25px 21px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--primary-light);
+            color: var(--primary);
+            margin-bottom: 19px;
+            font-size: 22px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+            color: var(--secondary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* Privacy section */
+
+        .privacy-section {
+            padding: 15px 0 80px;
+        }
+
+        .privacy-card {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            gap: 22px;
+            align-items: center;
+            background: var(--primary-light);
+            border: 1px solid #d3ebdc;
+            border-radius: 20px;
+            padding: 34px;
+        }
+
+        .privacy-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: white;
+            font-size: 30px;
+        }
+
+        .privacy-card h2 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .privacy-card p {
+            color: var(--secondary);
+            font-size: 14px;
+            max-width: 760px;
+        }
+
+        /* CTA */
+
+        .cta-section {
+            padding: 15px 0 85px;
+            text-align: center;
+        }
+
+        .cta-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-card h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .cta-card p {
+            color: var(--secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #ffffff;
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-content p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Workspace placeholder */
+
+        .workspace {
+            min-height: 100vh;
+            display: none;
+            padding: 25px 0;
+        }
+
+        .workspace.visible {
+            display: block;
+        }
+
+        .workspace-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0 30px;
+        }
+
+        .back-button {
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--secondary);
+            border-radius: 9px;
+            padding: 10px 15px;
+            font-weight: 600;
+        }
+
+        .workspace-content {
+            max-width: 720px;
+            margin: 65px auto;
+            text-align: center;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 55px 35px;
+            box-shadow: var(--shadow);
+        }
+
+        .workspace-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 22px;
+            display: grid;
+            place-items: center;
+            border-radius: 22px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 34px;
+        }
+
+        .workspace-content h1 {
+            font-size: 30px;
+            margin-bottom: 14px;
+        }
+
+        .workspace-content p {
+            color: var(--secondary);
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .workspace-status {
+            display: inline-block;
+            padding: 8px 14px;
+            background: #fff5df;
+            color: #92651c;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                gap: 30px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .container {
+                width: min(100% - 30px, 1120px);
+            }
+
+            .nav-content {
+                min-height: 66px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-button {
+                padding: 10px 13px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 55px 0 45px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .preview-area {
+                padding: 5px;
+            }
+
+            .preview-card {
+                padding: 18px;
+            }
+
+            .section {
+                padding: 55px 0;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 22px;
+            }
+
+            .privacy-card {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+
+            .privacy-card h2 {
+                font-size: 21px;
+            }
+
+            .cta-card {
+                padding: 35px 20px;
+            }
+
+            .cta-card h2 {
+                font-size: 25px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .workspace-content {
+                margin: 35px auto;
+                padding: 40px 22px;
+            }
+
+            .workspace-content h1 {
+                font-size: 25px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LANDING PAGE -->
+
+    <div id="landingPage">
+
+        <header class="navbar">
+            <div class="container nav-content">
+
+                <a href="#home" class="brand" aria-label="Cashbook home">
+                    <span class="brand-mark">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+                            <rect x="4" y="3" width="16" height="18" rx="2"/>
+                            <path d="M8 8h8M8 12h8M8 16h5"/>
+                        </svg>
+                    </span>
+                    Cashbook
+                </a>
+
+                <nav class="nav-links" aria-label="Main navigation">
+                    <a href="#features">Features</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="#about">About</a>
+                </nav>
+
+                <button class="nav-button" onclick="enterCashbook()">
+                    Enter Cashbook →
+                </button>
+
+            </div>
+        </header>
+
+        <main>
+
+            <section class="hero" id="home">
+                <div class="container hero-grid">
+
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span>
+                            Personal Finance Manager
+                        </div>
+
+                        <h1>
+                            Your money.<br>
+                            Your accounts.<br>
+                            <span>Your records.</span>
+                        </h1>
+
+                        <p class="hero-description">
+                            A simple and organised way to keep track of
+                            your accounts, income, expenses and transfers.
+                            Bring your personal financial records together
+                            in one convenient place.
+                        </p>
+
+                        <div class="hero-actions">
+                            <button class="primary-button"
+                                    onclick="enterCashbook()">
+                                Get Started →
+                            </button>
+
+                            <a href="#features" class="text-link">
+                                Explore features ↓
+                            </a>
+                        </div>
+
+                        <p class="hero-note">
+                            Designed for simple, organised personal
+                            financial record keeping.
+                        </p>
+                    </div>
+
+                    <div class="preview-area" aria-label="Illustrative Cashbook dashboard preview">
+                        <div class="preview-decoration"></div>
+
+                        <div class="preview-card">
+
+                            <div class="preview-heading">
+                                <strong>Financial Overview</strong>
+                                <span class="preview-label">Illustration</span>
+                            </div>
+
+                            <div class="balance-box">
+                                <small>Combined Account Balance</small>
+                                <div class="balance-amount">₹1,02,250.00</div>
+                                <small>Example figures only</small>
+                            </div>
+
+                            <div class="preview-stats">
+                                <div class="stat-box">
+                                    <small>Cash In</small>
+                                    <strong class="income">+ ₹42,500</strong>
+                                </div>
+
+                                <div class="stat-box">
+                                    <small>Cash Out</small>
+                                    <strong class="expense">− ₹5,250</strong>
+                                </div>
+                            </div>
+
+                            <div class="preview-transaction-heading">
+                                Recent Transactions
+                            </div>
+
+                            <div class="preview-transaction">
+                                <div>
+                                    <div class="transaction-name">Salary</div>
+                                    <div class="transaction-date">01 November</div>
+                                </div>
+                                <strong class="income">+ ₹40,000</strong>
+                            </div>
+
+                            <div class="preview-transaction">
+                                <div>
+                                    <div class="transaction-name">Groceries</div>
+                                    <div class="transaction-date">02 November</div>
+                                </div>
+                                <strong class="expense">− ₹1,500</strong>
+                            </div>
+
+                            <div class="preview-transaction">
+                                <div>
+                                    <div class="transaction-name">Electricity</div>
+                                    <div class="transaction-date">03 November</div>
+                                </div>
+                                <strong class="expense">− ₹2,000</strong>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section" id="features">
+                <div class="container">
+
+                    <div class="section-heading">
+                        <h2>Everything organised in one place</h2>
+                        <p>
+                            Keep your financial activities structured
+                            with features designed for everyday use.
+                        </p>
+                    </div>
+
+                    <div class="features-grid">
+
+                        <article class="feature-card">
+                            <div class="feature-icon">▤</div>
+                            <h3>Multiple Accounts</h3>
+                            <p>
+                                Maintain separate records for cash,
+                                bank accounts, savings and other
+                                financial accounts.
+                            </p>
+                        </article>
+
+                        <article class="feature-card">
+                            <div class="feature-icon">↕</div>
+                            <h3>Income & Expenses</h3>
+                            <p>
+                                Record money received and money spent.
+                                Categorise transactions and keep track
+                                of your financial activity.
+                            </p>
+                        </article>
+
+                        <article class="feature-card">
+                            <div class="feature-icon">⇄</div>
+                            <h3>Account Transfers</h3>
+                            <p>
+                                Record transfers between your own
+                                accounts without treating them as
+                                income or expenses.
+                            </p>
+                        </article>
+
+                        <article class="feature-card">
+                            <div class="feature-icon">▦</div>
+                            <h3>History & Reports</h3>
+                            <p>
+                                Review transaction history, explore
+                                financial summaries and understand
+                                your records over time.
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="privacy-section" id="privacy">
+                <div class="container">
+
+                    <div class="privacy-card">
+                        <div class="privacy-icon">🔒</div>
+
+                        <div>
+                            <h2>Your financial records matter</h2>
+                            <p>
+                                Cashbook is being designed with a
+                                local-first approach. The planned
+                                application stores financial records
+                                in your browser on your device rather
+                                than requiring a cloud database.
+                                Backup and security features will be
+                                introduced as development progresses.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="cta-section" id="about">
+                <div class="container">
+                    <div class="cta-card">
+                        <h2>Take control of your records</h2>
+                        <p>
+                            A clear and organised view of your
+                            personal finances starts here.
+                        </p>
+
+                        <button class="primary-button"
+                                onclick="enterCashbook()">
+                            Enter Cashbook →
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <p><strong>Cashbook</strong> – Your Money. Your Accounts. Your Records.</p>
+                <p>© <span id="currentYear"></span> Cashbook. Personal Finance Manager.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- INITIAL WORKSPACE PLACEHOLDER -->
+
+    <section class="workspace" id="workspace">
+
+        <div class="container">
+
+            <header class="workspace-header">
+                <a href="#" class="brand">
+                    <span class="brand-mark">₹</span>
+                    Cashbook
+                </a>
+
+                <button class="back-button" onclick="returnHome()">
+                    ← Back to Home
+                </button>
+            </header>
+
+            <div class="workspace-content">
+
+                <div class="workspace-icon">▤</div>
+
+                <div class="workspace-status">
+                    DEVELOPMENT IN PROGRESS
+                </div>
+
+                <h1>Welcome to Cashbook</h1>
+
+                <p>
+                    Your personal finance workspace is being prepared.
+                    We are building the application step by step,
+                    starting with account management and transaction
+                    recording.
+                </p>
+
+                <p>
+                    Your accounts, income, expenses and financial
+                    records will come together here.
+                </p>
+
+                <button class="primary-button" onclick="returnHome()">
+                    Back to Home
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+
+        function enterCashbook() {
+            document.getElementById("landingPage").style.display = "none";
+            document.getElementById("workspace").classList.add("visible");
+            window.scrollTo(0, 0);
+            history.pushState({ page: "workspace" }, "", "#workspace");
+        }
+
+        function returnHome() {
+            document.getElementById("workspace").classList.remove("visible");
+            document.getElementById("landingPage").style.display = "block";
+            window.scrollTo(0, 0);
+            history.pushState({ page: "home" }, "", window.location.pathname);
+        }
+
+        window.addEventListener("popstate", function () {
+            if (window.location.hash === "#workspace") {
+                document.getElementById("landingPage").style.display = "none";
+                document.getElementById("workspace").classList.add("visible");
+            } else {
+                document.getElementById("workspace").classList.remove("visible");
+                document.getElementById("landingPage").style.display = "block";
+            }
+        });
+
+        if (window.location.hash === "#workspace") {
+            document.getElementById("landingPage").style.display = "none";
+            document.getElementById("workspace").classList.add("visible");
+        }
+    </script>
+
+</body>
+</html>
